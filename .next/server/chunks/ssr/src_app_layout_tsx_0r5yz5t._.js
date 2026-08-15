@@ -1,0 +1,3 @@
+module.exports=[27572,a=>{"use strict";var b=a.i(7997);a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"en",className:"dark",children:(0,b.jsx)("body",{className:"antialiased bg-slate-950 text-slate-100 min-h-screen",children:a})})},"metadata",0,{title:"EcoShift AI — Cradle-to-Grave Vehicle Carbon Calculator",description:"AI-powered Lifecycle Assessment (LCA) carbon footprint calculator comparing EVs, Hybrids, and ICE vehicles."}])},50645,function(a){a.n(a.i(27572))}];
+
+//# sourceMappingURL=src_app_layout_tsx_0r5yz5t._.js.map
