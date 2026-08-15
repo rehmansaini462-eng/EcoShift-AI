@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import AIGreenAdvisor from '@/components/AIGreenAdvisor';
 import BreakEvenLineChart from '@/components/BreakEvenLineChart';
 import EmissionBreakdownBarChart from '@/components/EmissionBreakdownBarChart';
 import MetricSummaryCards from '@/components/MetricSummaryCards';
@@ -8,7 +9,7 @@ import SimulationControls from '@/components/SimulationControls';
 import VehicleSelectorCard from '@/components/VehicleSelectorCard';
 import { PRESET_VEHICLES, REGIONAL_GRID_INTENSITIES } from '@/constants/gridData';
 import { calculateLifecycleEmissions } from '@/lib/lcaCalculator';
-import { VehicleSpec } from '@/types/vehicle';
+import { SimulationParams, VehicleSpec } from '@/types/vehicle';
 import { Activity, BarChart3, Code2, Globe, Leaf, Sparkles } from 'lucide-react';
 
 export default function Home() {
@@ -26,16 +27,22 @@ export default function Home() {
   // Active Chart View Tab State ('line' | 'bar' | 'both')
   const [activeTab, setActiveTab] = useState<'both' | 'line' | 'bar'>('both');
 
-  // Real-time Reactive LCA Calculation Engine Memo
-  const lcaResult = useMemo(() => {
-    return calculateLifecycleEmissions({
+  // Simulation Params Bundle
+  const simParams: SimulationParams = useMemo(
+    () => ({
       vehicleA,
       vehicleB,
       annualKm,
       lifespanYears,
       gridIntensityGramsPerKWh: gridIntensity,
-    });
-  }, [vehicleA, vehicleB, annualKm, lifespanYears, gridIntensity]);
+    }),
+    [vehicleA, vehicleB, annualKm, lifespanYears, gridIntensity]
+  );
+
+  // Real-time Reactive LCA Calculation Engine Memo
+  const lcaResult = useMemo(() => {
+    return calculateLifecycleEmissions(simParams);
+  }, [simParams]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-emerald-500 selection:text-slate-950">
@@ -192,6 +199,11 @@ export default function Home() {
               />
             )}
           </div>
+        </section>
+
+        {/* Section 6: AI Green Advisor Synthesis Module */}
+        <section>
+          <AIGreenAdvisor simulationResult={lcaResult} params={simParams} />
         </section>
 
         {/* Footer */}
