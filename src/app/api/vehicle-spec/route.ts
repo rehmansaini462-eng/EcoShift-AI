@@ -137,14 +137,27 @@ Rules:
 function getFallbackVehicleSpec(query: string): VehicleSpec {
   const q = query.toLowerCase();
 
-  if (q.includes('tesla') || q.includes('bev') || q.includes('electric') || q.includes('nexon ev') || q.includes('rivian') || q.includes('lucid')) {
+  if (
+    q.includes('tesla') ||
+    q.includes('bev') ||
+    q.includes('electric') ||
+    q.includes('ev') ||
+    q.includes('ioniq') ||
+    q.includes('rivian') ||
+    q.includes('lucid') ||
+    q.includes('taycan') ||
+    q.includes('mach-e') ||
+    q.includes('polestar') ||
+    q.includes('byd') ||
+    q.includes('leaf')
+  ) {
     return {
       name: query.length > 2 ? query : 'Generic Electric Vehicle (BEV)',
       type: 'BEV',
-      batteryKWh: q.includes('long range') || q.includes('model s') ? 82 : 60,
-      curbWeightKg: 1850,
-      efficiencyKmPerUnit: 6.0,
-      baselineManufacturingCO2Kg: 7200,
+      batteryKWh: q.includes('long range') || q.includes('model s') || q.includes('ioniq 5') ? 77.4 : 60,
+      curbWeightKg: 1950,
+      efficiencyKmPerUnit: 5.8,
+      baselineManufacturingCO2Kg: 7500,
     };
   }
 
